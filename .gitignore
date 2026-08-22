@@ -1,0 +1,14 @@
+# oython bytecode cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# blender backup/temp files
+*.blend
+*.blend1
+*.blend2
+*.blend@
+
+# OS junk
+.DS_Store
+Thumbs.db

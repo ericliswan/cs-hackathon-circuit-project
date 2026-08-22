@@ -16,8 +16,8 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0))
     """
     curve_data = bpy.data.curves.new(name, type="CURVE")
     curve_data.dimensions = "3D"
-    curve_data.bevel_depth = 0.01
-    curve_data.bevel_resolution = 4
+    curve_data.bevel_depth = 0.1
+    curve_data.bevel_resolution = 6
     curve_data.fill_mode = "FULL"
 
     spline = curve_data.splines.new("BEZIER")
@@ -49,7 +49,7 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0))
 
 
 
-def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.02):
+def update_wire_endpoints(wire_obj, start_position, end_position, sag=12):
     """
     Reshapes/moves an already existing wire object to run between start_position
             and endposition with a little downward sag at the midpoint for added
@@ -69,6 +69,7 @@ def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.02):
             https://docs.blender.org/api/current/bpy.types.ID.html#bpy.types.ID.update_tag
 
     """
+    # get spline from wire object and bezier points from spline
     spline = wire_obj.data.splines[0]
     position_start, position_mid, position_end = spline.bezier_points
 
