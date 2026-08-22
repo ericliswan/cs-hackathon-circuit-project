@@ -20,7 +20,7 @@ Raw output from Breadboard coordinates (2D node coordinates, includes jumper wir
 
 ```[["WIRE", 'VCC', (1,"b")], ["WIRE", (1,"a"), (2,"c")], ["RESISTOR1", (2,"c"), (4,"c")], ["WIRE", (4,"b"), (5,"d")], ["RESISTOR2", (5,"c"), (7,"c")], ["CAPACITOR2", (5,"c"), (7,"c")], ["WIRE", (7,"b"), 'GND'], ["PROBE", (5,"c"), (7,"c")]]```
 
-Structured output (All wires removed, nodes merged with components, and the voltage source object appended). Note how all nodes are normalised to integers. The following output is a __repr__ representation of the list where the notation 1->5 represents the component being connected to node 1 and node 5.
+Structured output (All wires removed, nodes merged with components, and the voltage source object appended). Note how all nodes are normalised to integers. The following output is a __repr__ representation of the list where the notation 1->5 represents the component being connected to node 1 and node 5. Unique identifiers are used to give the components different names.
 
 ```[67b9ffcd-403b-47f4-89f5-6f7d111a4c33, 1->5, 250, 31fa8cf3-1b27-4358-bf2a-5feb930ac699, 5->0, 500, bedd60a2-4496-4960-adf0-6502e99ec46e, 5->0, 4.7e-05, <AC_Circuit_Solver.VoltageSource object at 0x104458d70>]```
 
