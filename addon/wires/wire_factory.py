@@ -12,10 +12,6 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0),
     Creates a wire object with a 3 point rounded bevel bezier curve positioned
             between start_position and end_position, with sag already applied.
 
-    All midpoint/sag shaping is delegated to update_wire_endpoints() below,
-            so that logic exists in exactly one place — a freshly created wire
-            and a reshaped wire are always shaped identically.
-
     Args:
         name: object name in the scene
         start_position, end_position: initial global endpoint coords
@@ -53,9 +49,6 @@ def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.5):
     Reshapes/moves an already existing wire object to run between start_position
             and endposition with a little downward sag at the midpoint for added
             realism (if its fully straight it doesnt look right)
-
-    create_wire() also calls this internally right after building a fresh
-            wire, so sag logic only lives here.
 
     Args:
         -   wire_obj: Object returned by create_wire()
