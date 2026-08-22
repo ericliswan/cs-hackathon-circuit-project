@@ -8,9 +8,10 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0))
     Creates a wire object with a 3 point rounded bevel bezier curve positioned
             between start_position and end_position.
 
-        -   bpy curve documentation
+    Documentation:
+        -   bpy curve 
             https://docs.blender.org/api/current/bpy.types.Curve.html
-        -   bpy spline documentation
+        -   bpy spline 
             https://docs.blender.org/api/current/bpy.types.Spline.html
     """
     curve_data = bpy.data.curves.new(name, type="CURVE")
@@ -34,6 +35,7 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0))
     point_mid.co = mid_position
     point_end.co = end_position
 
+    # set handle types
     for point in (point_start, point_mid, point_end):
         point.handle_left_type = "AUTO"
         point.handle_right_type = "AUTO"
@@ -47,3 +49,37 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0))
 
 
 
+def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.02):
+    """
+    Reshapes/moves an already existing wire object to run between start_position
+            and endposition with a little downward sag at the midpoint for added
+            realism (if its fully straight it doesnt look right)
+    
+    Args:
+        -   wire_obj: Object returned by create_wire()
+        -   start_position & end_position: new start and endpoints
+        -   sag: how far the midpoint curves
+    
+    Documentation:
+        -   bpy spline 
+            https://docs.blender.org/api/current/bpy.types.Spline.html
+        -   mathutils Vector
+            https://docs.blender.org/api/current/mathutils.html#mathutils.Vector
+        -   update tag
+            https://docs.blender.org/api/current/bpy.types.ID.html#bpy.types.ID.update_tag
+
+    """
+    spline = wire_obj.data.splines[0]
+    position_start, position_mid, position_end = spline.bezier_points
+
+    # turn tuples into mathutil vectors so we can perform math operations
+    start_vector = Vector(start_position)
+    end_vector = Vector(end_position)
+
+    # reset handle types (apparently forces blender to recalculate positions)
+    for point in (point_start, point_mid, point_end):
+        point.handle_left_type = "AUTO"
+        point.handle_right_type = "AUTO"
+
+    # update object
+    wire_obj.data.update_tag()
