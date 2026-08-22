@@ -1,4 +1,5 @@
 import bpy
+from mathutils import Vector
 
 # bpy RESOURCES
 # bpy.types.Curve, bpy.types.BezierSplinePoint, bpy.types.Collection, and the Add-on Tutorial
@@ -49,7 +50,7 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0))
 
 
 
-def update_wire_endpoints(wire_obj, start_position, end_position, sag=12):
+def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.05):
     """
     Reshapes/moves an already existing wire object to run between start_position
             and endposition with a little downward sag at the midpoint for added
@@ -71,7 +72,7 @@ def update_wire_endpoints(wire_obj, start_position, end_position, sag=12):
     """
     # get spline from wire object and bezier points from spline
     spline = wire_obj.data.splines[0]
-    position_start, position_mid, position_end = spline.bezier_points
+    point_start, point_mid, point_end = spline.bezier_points
 
     # turn tuples into mathutil vectors so we can perform math operations
     start_vector = Vector(start_position)
