@@ -7,7 +7,7 @@ WIRE_BEVEL_RESOLUTION = 4      # roundness of the tube cross-section
 
 
 def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0),
-                 sag=0.5):
+                 sag=1):
     """
     Creates a wire object with a 3 point rounded bevel bezier curve positioned
             between start_position and end_position, with sag already applied.
@@ -44,7 +44,7 @@ def create_wire(name="wire", start_position=(0, 0, 0), end_position=(0.1, 0, 0),
     return obj
 
 
-def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.5):
+def update_wire_endpoints(wire_obj, start_position, end_position, sag=1):
     """
     Reshapes/moves an already existing wire object to run between start_position
             and endposition with a little downward sag at the midpoint for added
@@ -72,7 +72,7 @@ def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.5):
     start_vector = Vector(start_position)
     end_vector = Vector(end_position)
     mid_vector = (start_vector + end_vector) / 2
-    mid_vector.z -= sag
+    mid_vector.z += sag
 
     # vectors -> coords
     point_start.co = start_vector
