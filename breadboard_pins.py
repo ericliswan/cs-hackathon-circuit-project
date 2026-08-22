@@ -42,14 +42,39 @@ def get_pin_dict(grid_origin_name : str) -> dict[str, tuple[float, float, float]
                 middle_jump = True
             else:
                 x_offset += X_DISTANCE_PINS
-    return pins
 
+    # LHS of Breadboard (unfinished), intends to make RHS for power rails
+    
+    for num in range(1, 56): 
+        y_starting_pos = -0.616
+        x_starting_pos = -0.3763
+        count = 1
+        
+        if num % 5: 
+            y_offset = (num - 1) * -2*Y_DISTANCE_PINS
+        else: 
+            y_offset = (num - 1) * -Y_DISTANCE_PINS
+            
+        x_offset = 0.0
+        
+        for i in range(2): 
+            if i % 2 == 0: 
+                pins[f'GND'] = (x_offset, y_offset, 0.0)
+            else: 
+                x_offset += X_DISTANCE_PINS
+                pins['VCC'] = (x_offset, y_offset, 0.0)
+                
+    return pins
+    
+        
+    
+    
 def get_pin_world_location(grid_origin_name: str, pin_key: str, pin_dict: dict): 
     """ Returns the exact 3D world position for a pin key
     
     Parameters: 
-            grid_origin_name: name of grid origin obj
-            pin_key: eg, a_1
+            grid_origin_name: name of grid origin object
+            pin_key: eg, a1
             pin_dict: dictionary in format {pin_key : local coordinate}
     
     local coordinate is relative to grid_origin
@@ -60,8 +85,25 @@ def get_pin_world_location(grid_origin_name: str, pin_key: str, pin_dict: dict):
     if local_tuple and grid_origin: 
         # Convert tuple to vector for matrix multiplication 
         local_vec = Vector(local_tuple)
-        # Transforms local offset into current world coordinates 
-        return grid_origin.matrix_world @ local_vec
+        # Transforms local offset into current world coordinates
+        return_vec = grid_origin.matrix_world @ local_vec
+        return return_vec
 
     return None
+
+def local_to_global_coordinates(grid_origin_name: str, pin_dict: dict): 
+    """ Replaces local coordinates of pin dictionary to global.
+
+    Parameters: 
+        pin_dict(dict): dictionary in format {pin_key : local coordinate}
+        grid_origin_name: name of grid origin object
+
+    Returns: 
+        pin_dict: dictionary in format {pin_key : global coordinate}
+    """
+    # Iterates over pin_dict and changes local coordinates to global coordinates.
+    for pin_key, local_coordinate in pin_dict.items(): 
+        pin_dict[pin_key] = get_pin_world_location(grid_origin_name, pin_key, pin_dict)
+
+    return pin_dict
 
