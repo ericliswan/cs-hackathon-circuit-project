@@ -41,11 +41,14 @@ NODES = {
     "GND": 0
 }
 
-def node(coord):
-    """Returns flattened node (2D -> 1D)."""
-    if coord in NODES:
+def node(coord: Hole) -> int:
+    if coord in NODES: 
         return NODES[coord]
-    return int(coord[0]) + 1
+    if isinstance(coord, (tuple, list)): 
+        return int(coord[0]) + 1
+    if isinstance(coord, int): 
+        return coord
+    return int("".join(ch for ch in str(coord) if ch.isdigit())) + 1
 
 def check_complete(components: list[Row]) -> bool:
     """Checks whether the circuit is complete, and that there is a complete path
