@@ -16,6 +16,14 @@ The Breadboard consists of pins arranged in rows and columns, where pins in the 
 
 A list of all the components and their nodes is updated when the user drags them onto the breadboard. These include wires, resistors, capacitors and inductors and two nodes (connection points to the breadboard). To format and validate, a function receives the input list and performs a Depth First Search (DFS) to determine whether the circuit is valid. If so, the list of components gets reduced in a way that wires get removed, the nodes merge, and a transformation is applied to flatten the 2D coordinates into a single integer for each node. Using dictionary lookups, the list of components is formatted in a way that has a list of objects with unique identifiers.
 
+Raw output from Breadboard coordinates (2D node coordinates, includes jumper wires, and various types to represent the node from 'VCC', 'GND', 1, 'b'). VCC is taken as the positive power supply, and GND is the ground.
+
+```[["WIRE", 'VCC', (1,"b")], ["WIRE", (1,"a"), (2,"c")], ["RESISTOR1", (2,"c"), (4,"c")], ["WIRE", (4,"b"), (5,"d")], ["RESISTOR2", (5,"c"), (7,"c")], ["CAPACITOR2", (5,"c"), (7,"c")], ["WIRE", (7,"b"), 'GND'], ["PROBE", (5,"c"), (7,"c")]]```
+
+Structured output (All wires removed, nodes merged with components, and the voltage source object appended). Note how all nodes are normalised to integers. The following output is a __repr__ representation of the list where the notation 1->5 represents the component being connected to node 1 and node 5.
+
+```[67b9ffcd-403b-47f4-89f5-6f7d111a4c33, 1->5, 250, 31fa8cf3-1b27-4358-bf2a-5feb930ac699, 5->0, 500, bedd60a2-4496-4960-adf0-6502e99ec46e, 5->0, 4.7e-05, <AC_Circuit_Solver.VoltageSource object at 0x104458d70>]```
+
 ### AC Circuit Solver
 
 The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, allowing for independent voltage sources and current sources to be factored into analysis. This involves making a matrix with the following unknowns (nodal voltages, N_x; voltage source, V_S; currents referring to the voltage source. The ground node is omitted from the matrix as it creates an unnecessary equation, since the rule of thumb is that for n nodes, n-1 equations are needed, as the ground is taken to be at a voltage of 0 V.
