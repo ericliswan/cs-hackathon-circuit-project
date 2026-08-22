@@ -20,21 +20,26 @@ def get_pin_dict(grid_origin_name : str) -> dict[str, tuple[float, float, float]
     X_DISTANCE_MIDDLE_PINS = 0.00762   # 0.3" standard center channel
     Y_DISTANCE_PINS = 0.00254          # 0.1" standard pin pitch (square grid)
 
-    LETTERS = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j')
+    LETTERS = ('a', 'b', 'c', 'd', 'e', 'a', 'b', 'c', 'd', 'e')
     pins = {}
 
-    for num in range(1, 64):
+    for num in range(1, 61):
         # Calculate row Y offset (0-indexed shift from row 1)
         y_offset = (num - 1) * -Y_DISTANCE_PINS  
         x_offset = 0.0
+        middle_jump = False
         
         for letter in LETTERS:
             # Store local relative coordinate vector
-            pins[f"{num}_{letter}"] = (x_offset, y_offset, 0.0)
+            if middle_jump is True: 
+                pins[f"{num+60}{letter}"] = (x_offset, y_offset, 0.0)
+            else: 
+                pins[f"{num}{letter}"] = (x_offset, y_offset, 0.0)
             
             # Advance X for the next letter in the row
             if letter == 'e':  # Transition across center divider (between 'e' and 'f')
                 x_offset += X_DISTANCE_MIDDLE_PINS
+                middle_jump = True
             else:
                 x_offset += X_DISTANCE_PINS
     return pins
@@ -59,3 +64,4 @@ def get_pin_world_location(grid_origin_name: str, pin_key: str, pin_dict: dict):
         return grid_origin.matrix_world @ local_vec
 
     return None
+
