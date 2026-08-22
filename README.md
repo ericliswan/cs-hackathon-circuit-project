@@ -26,7 +26,7 @@ The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, 
 
 The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed then the sign would compensate.
 
-<img width="850" height="703" alt="Conventions + extra drawio" src="https://github.com/user-attachments/assets/85d89ebd-dbf1-4d5e-826c-b16397e0632b" />
+<img width="678" height="451" alt="Screenshot 2026-08-22 at 6 17 03 pm" src="https://github.com/user-attachments/assets/ce2ce3d1-4d7e-4653-a7d2-2ed2dca0dc41" />
 
 ### UML Diagram
 
