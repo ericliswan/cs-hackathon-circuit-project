@@ -1,5 +1,4 @@
-[Circuit Analysis UML - Hackathon.drawio](https://github.com/user-attachments/files/31329983/Circuit.Analysis.UML.-.Hackathon.drawio)# cs-hackathon-circuit-project
-UQCS Hackathon Project
+#Cs UQCS Hackathon Project
 
 ### Idea
 
@@ -27,7 +26,7 @@ The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, 
 
 The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed then the sign would compensate.
 
-<img width="204" height="167" alt="Conventions + extra drawio" src="https://github.com/user-attachments/assets/80959d34-ee78-4a65-9b85-4452e9d72b58" />
+<img width="203" height="168" alt="Conventions + extra drawio" src="https://github.com/user-attachments/assets/85d89ebd-dbf1-4d5e-826c-b16397e0632b" />
 
 ### UML Diagram
 
