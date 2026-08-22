@@ -1,14 +1,14 @@
-# Cs UQCS Hackathon Project
+# Cs UQCS Hackathon Project - 3D Circuit Modeller and Tester
 
 ### Idea
 
-This circuit project provides users with basic equipment to test AC voltage inputs in circuits with components like Resistors, Capacitors, and Inductors. An oscilloscope with an AC waveform generator is rendered in Blender, along with a breadboard. The breadboard allows users to drag and drop components like jumper wires and other components, wire them up and see the voltage waveform output. The purpose is to test and experiment with different voltage inputs and probe measurements, which would be invaluable to students wanting to catch up on a practical or to gain more skills with using oscilloscopes and building circuits. 3D rendering of the equipment makes the construction more realistic compared to websites like Tinkercad.
+This circuit project provides users with basic equipment to test AC voltage inputs in circuits with components like Resistors, Capacitors, and Inductors. An oscilloscope with an AC waveform generator is rendered in 3D in Blender, along with a breadboard. The breadboard allows users to drag and drop components like jumper wires and other components, wire them up and see the voltage waveform output. The purpose is to test and experiment with different voltage inputs and probe measurements, which would be invaluable to students wanting to catch up on a practical or to gain more skills with using oscilloscopes and building circuits. 3D rendering of the equipment makes the construction more realistic compared to websites like Tinkercad.
 
 ### The Stack
 
 Python is used for all the backend operations like solving the circuit, parsing and formatting; it also supports the logic for physically changing the circuit, which refines the parameters that affect the circuit, feeding those new values into the circuit solver and then updating it onto the oscilloscope display.
 
-Blender is used to render the components and equipment in 3D.
+Blender is used to render the components and equipment in 3D, supporting interactive elements like adding components to the breadboard and tuning the parameters for the input voltage waveform.
 
 ### Parsing the Breadboard Nodes
 
@@ -24,7 +24,7 @@ The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, 
 
 ### Conventions
 
-The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed then the sign would compensate.
+The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed, then the sign would compensate.
 
 <img width="678" height="451" alt="Screenshot 2026-08-22 at 6 17 03 pm" src="https://github.com/user-attachments/assets/ce2ce3d1-4d7e-4653-a7d2-2ed2dca0dc41" />
 
@@ -34,10 +34,7 @@ The following conventions were taken, and currents were assumed to leave Node A 
 
 ### Displaying the voltage waveforms on the oscilloscope
 
-During testing, Python matplotlib was used to plot the waveforms based on three conditions: magnitude, omega and phase, which uniquely determine a sinusoidal function. The magnitude, frequency and phase shift of the input voltage wave can be adjusted by the user, which gets instantaneously updated on the oscilloscope display. If the circuit is valid, both voltage waveforms get plotted on the same graph. An example graph shows the matplotlib representation of the voltage output and input waveforms after the circuit solver finds the three parameters.
+During testing, Python matplotlib was used to plot the waveforms based on three conditions: magnitude, omega and phase, which uniquely determine a sinusoidal function. The magnitude, frequency and phase shift of the input voltage wave can be adjusted by the user, which gets instantaneously updated on the oscilloscope display. If the circuit is valid, both voltage waveforms get plotted on the same graph. An example graph shows the matplotlib representation of the voltage output and input waveforms after the circuit solver finds the three parameters. The x-axis is time in milliseconds (ms), and the y-axis is the voltage (V).
 
 <img width="850" height="425" alt="Example Voltage Plot" src="https://github.com/user-attachments/assets/980a035d-1bcb-4cc3-8643-4d86cf9e4295" />
-
-
-
 
