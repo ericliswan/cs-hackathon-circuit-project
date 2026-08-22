@@ -75,6 +75,13 @@ def update_wire_endpoints(wire_obj, start_position, end_position, sag=0.02):
     # turn tuples into mathutil vectors so we can perform math operations
     start_vector = Vector(start_position)
     end_vector = Vector(end_position)
+    mid_vector = (start_vector + end_vector) / 2
+    mid_vector.z -= sag
+
+    # vectors -> coords
+    point_start.co = start_vector
+    point_mid.co = mid_vector
+    point_end.co = end_vector
 
     # reset handle types (apparently forces blender to recalculate positions)
     for point in (point_start, point_mid, point_end):
