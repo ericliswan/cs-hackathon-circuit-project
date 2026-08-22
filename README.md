@@ -1,4 +1,4 @@
-# cs-hackathon-circuit-project
+[Circuit Analysis UML - Hackathon.drawio](https://github.com/user-attachments/files/31329983/Circuit.Analysis.UML.-.Hackathon.drawio)# cs-hackathon-circuit-project
 UQCS Hackathon Project
 
 ### Idea
@@ -23,7 +23,18 @@ The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, 
 
 <img width="857" height="418" alt="Screenshot 2026-08-22 at 4 16 18 pm" src="https://github.com/user-attachments/assets/1b515a61-556d-42d5-b8d0-51e21e71154b" />
 
+### Conventions
+
+The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed then the sign would compensate.
+
+<img width="204" height="167" alt="Conventions + extra drawio" src="https://github.com/user-attachments/assets/80959d34-ee78-4a65-9b85-4452e9d72b58" />
+
+### UML Diagram
+
+<img width="992" height="550" alt="Circuit Analysis UML - Hackathon drawio" src="https://github.com/user-attachments/assets/d7f1c837-f41c-44ec-ae62-00801feb2212" />
+
 ### Displaying the voltage waveforms on the oscilloscope
 
 During testing, Python matplotlib was used to plot the waveforms based on three conditions: magnitude, omega and phase, which uniquely determine a sinusoidal function. The magnitude, frequency and phase shift of the input voltage wave can be adjusted by the user, which gets instantaneously updated on the oscilloscope display.
+
 
