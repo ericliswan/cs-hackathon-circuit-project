@@ -26,7 +26,7 @@ The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, 
 
 The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed then the sign would compensate.
 
-<img width="203" height="168" alt="Conventions + extra drawio" src="https://github.com/user-attachments/assets/85d89ebd-dbf1-4d5e-826c-b16397e0632b" />
+<img width="850" height="703" alt="Conventions + extra drawio" src="https://github.com/user-attachments/assets/85d89ebd-dbf1-4d5e-826c-b16397e0632b" />
 
 ### UML Diagram
 
@@ -34,6 +34,10 @@ The following conventions were taken, and currents were assumed to leave Node A 
 
 ### Displaying the voltage waveforms on the oscilloscope
 
-During testing, Python matplotlib was used to plot the waveforms based on three conditions: magnitude, omega and phase, which uniquely determine a sinusoidal function. The magnitude, frequency and phase shift of the input voltage wave can be adjusted by the user, which gets instantaneously updated on the oscilloscope display.
+During testing, Python matplotlib was used to plot the waveforms based on three conditions: magnitude, omega and phase, which uniquely determine a sinusoidal function. The magnitude, frequency and phase shift of the input voltage wave can be adjusted by the user, which gets instantaneously updated on the oscilloscope display. If the circuit is valid, both voltage waveforms get plotted on the same graph. An example graph shows the matplotlib representation of the voltage output and input waveforms after the circuit solver finds the three parameters.
+
+<img width="850" height="425" alt="Example Voltage Plot" src="https://github.com/user-attachments/assets/980a035d-1bcb-4cc3-8643-4d86cf9e4295" />
+
+
 
 
