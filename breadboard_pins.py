@@ -59,10 +59,3 @@ def get_pin_world_location(grid_origin_name: str, pin_key: str, pin_dict: dict):
         return grid_origin.matrix_world @ local_vec
 
     return None
-
-# Example: 
-pins_hashmap = get_pin_dict("Grid_Origin")
-
-# Get world location of pin 5_e
-world_pos_1a = get_pin_world_location("Grid_Origin", "5_e", pins_hashmap)
-print(f"5_e World Position: {world_pos_1a}")
