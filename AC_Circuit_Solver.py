@@ -2,6 +2,7 @@ import numpy as np
 import json
 import cmath
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 class Component:
     """
@@ -437,14 +438,20 @@ def find_output_voltage(node_pair: tuple[int, int], nodal_voltages: list[complex
     except:
         return (0.0, 0.0, 0.0)
 
-def plot_voltage(mag_s, omega_s, phi_s, mag_o, omega_o, phi_o, x_scale_mult=1, y_scale_mult=1) -> None:
+def plot_voltage(mag_s, omega_s, phi_s, mag_o=None, omega_o=None, phi_o=None, x_scale_mult=1, y_scale_mult=1, graph_size=(8,5)) -> None:
     """
     Prepares the graph of the sinusoidal voltage wave form. Variables with
     subscript s denote parameters of the source voltage while variables with 
     subscript o denote parameters of the output voltage.
     
+    Using the matplotlib animation library, both waveforms get plotted with
+    two stacked curves, one with a thicker outline and lower alpha to give a glow
+    effect. 
     """
-    plt.figure(figsize=(8,4))
+
+    plt.style.use('dark_background')
+    fig, ax= plt.subplots(figsize=graph_size)
+
     # Default plotting dimensions include 2 wave cycles, one before the origin,
     # and one after as period = (2*pi)/omega
     x_min_s = -(2* np.pi)/omega_s
@@ -459,34 +466,93 @@ def plot_voltage(mag_s, omega_s, phi_s, mag_o, omega_o, phi_o, x_scale_mult=1, y
     # Plotting the voltage wave form
     V_s = mag_s * np.cos(omega_s*t_s + phi_s)
     # Plot time in milliseconds
-    plt.plot(t_s*1000, V_s, linewidth=3.5, color='blue')
 
-    # Same procedure with the output voltage
-    x_min_o = -(2* np.pi)/omega_o
-    x_max_o = (2* np.pi)/omega_o
+    # Two lines stacked on top, thicker one has lower opacity for glow effect
+    glow_line_a, = plt.plot(t_s*1000, V_s, linewidth=6, alpha=0.3, color='#00FF66')
+    main_line_a, = plt.plot(t_s*1000, V_s, linewidth=2, alpha=1, color='#00FF66')    
 
-    # Slightly increasing the min/max height by default for extra padding on the
-    # top and bottom
-    y_min_o = mag_o * -1.1
-    y_max_o = mag_o * 1.1
+    if mag_o is not None and omega_o is not None and phi_o is not None:
+        # Same procedure with the output voltage
+        x_min_o = -(2* np.pi)/omega_o
+        x_max_o = (2* np.pi)/omega_o
 
-    t_o = np.linspace(x_min_o*x_scale_mult, x_max_o*x_scale_mult, 400)
-    # Plotting the voltage wave form
-    V_o= mag_o * np.cos(omega_o*t_o + phi_o)
-    # Plot time in milliseconds
+        # Slightly increasing the min/max height by default for extra padding on the
+        # top and bottom
+        y_min_o = mag_o * -1.1
+        y_max_o = mag_o * 1.1
+
+        t_o = np.linspace(x_min_o*x_scale_mult, x_max_o*x_scale_mult, 400)
+        # Plotting the voltage wave form
+        V_o= mag_o * np.cos(omega_o*t_o + phi_o)
+        # Plot time in milliseconds
+        
+        # Two lines stacked on top, thicker one has lower opacity for glow effect
+        glow_line_b, = plt.plot(t_o*1000, V_o, linewidth=6, alpha=0.3, color='#FF073A') 
+        main_line_b, = plt.plot(t_o*1000, V_o, linewidth=2, alpha=1, color='#FF073A')   
+
+        # function to simulate movement frame by frame
+        def update_both(frame):
+            # Phase shift formula based on the current frame index
+            phase_a = frame * 0.0005
+            phase_b = frame * 0.0002
+            V_s = mag_s * np.cos(omega_s*(t_s - phase_a) + phi_s)
+            V_o = mag_o * np.cos(omega_o*(t_o-phase_b) + phi_o)
+            
+            # Update both the main line and the glow line
+            main_line_a.set_ydata(V_s)
+            glow_line_a.set_ydata(V_s)
+            main_line_b.set_ydata(V_o)
+            glow_line_b.set_ydata(V_o)
+            return main_line_a, glow_line_a, main_line_b, glow_line_b
+
+        ani = animation.FuncAnimation(
+            fig, 
+            update_both, 
+            frames=200,             
+            interval=20, 
+            blit=True
+        )
+
+        # Applying boundaries
+        plt.xlim(min(x_min_s, x_min_o)*x_scale_mult*1000, max(x_max_s, x_max_o)*x_scale_mult*1000)
+        plt.ylim(min(y_min_s, y_min_o)*y_scale_mult, max(y_max_s, y_max_o)*y_scale_mult)
     
-    plt.plot(t_o*1000, V_o, linewidth=3.5, color='crimson')    
+        # major and minor grid lines
+        plt.minorticks_on()
+        plt.grid(which='major', color='black', linestyle='-', linewidth=0.5)
+        plt.grid(which='minor', color='gray', linestyle='-', linewidth=0.25)
     
-    # Applying boundaries
-    plt.xlim(min(x_min_s, x_min_o)*x_scale_mult*1000, max(x_max_s, x_max_o)*x_scale_mult*1000)
-    plt.ylim(min(y_min_s, y_min_o)*y_scale_mult, max(y_max_s, y_max_o)*y_scale_mult)
+        plt.show()
 
-    # major and minor grid lines
-    plt.minorticks_on()
-    plt.grid(which='major', color='black', linestyle='-', linewidth=0.5)
-    plt.grid(which='minor', color='gray', linestyle='-', linewidth=0.25)
+    else:
+        # function to simulate movement frame by frame
+        def update_single(frame):
+            # Phase shift formula based on the current frame index
+            phase_a = frame * 0.0005
+            V_s = mag_s * np.cos(omega_s*(t_s - phase_a) + phi_s)
+            
+            # Update both the main line and the glow line
+            main_line_a.set_ydata(V_s)
+            glow_line_a.set_ydata(V_s)
+            return main_line_a, glow_line_a
 
-    plt.show()
+        ani = animation.FuncAnimation(
+            fig, 
+            update_single, 
+            frames=200,             
+            interval=20, 
+            blit=True
+        )
+        # Applying boundaries
+        plt.xlim(x_min_s*x_scale_mult*1000, x_max_s*x_scale_mult*1000)
+        plt.ylim(y_min_s*y_scale_mult, y_max_s*y_scale_mult)
+    
+        # major and minor grid lines
+        plt.minorticks_on()
+        plt.grid(which='major', color='black', linestyle='-', linewidth=0.5)
+        plt.grid(which='minor', color='gray', linestyle='-', linewidth=0.25)
+    
+        plt.show()
 
 if __name__ == "__main__":
 
