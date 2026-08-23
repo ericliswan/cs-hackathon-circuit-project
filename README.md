@@ -10,7 +10,7 @@ This circuit project provides users with basic equipment to test AC voltage inpu
 
 Python is used for all the backend operations like solving the circuit, parsing and formatting; it also supports the logic for physically changing the circuit, which refines the parameters that affect the circuit, feeding those new values into the circuit solver and then updating it onto the oscilloscope display.
 
-Blender is used to render the components and equipment in 3D, supporting interactive elements like adding components to the breadboard and tuning the parameters for the input voltage waveform.
+Blender is used to render the components and equipment in 3D, supporting interactive elements like adding components to the breadboard and tuning the parameters for the input voltage waveform. Using ```import bpy```, python scripts can interact with Blender from an IDE.
 
 ### Parsing the Breadboard Nodes
 
@@ -85,6 +85,8 @@ The following open-source models from Blend-kit were used to develop the fronten
 Breadboard: https://www.blendkit.com/asset-gallery-detail/85a896f7-81c8-4493-9778-c70b3a7d2a9c/
 
 Oscilloscope: https://www.blendkit.com/asset-gallery-detail/64f2fd79-8ff7-453a-ac25-d78dc3ca21f0/?query=tags%3AOscilloscope
+
+The following images were used in this readme:
 
 Graph Theory in Network Analysis: https://www.eeeguide.com/graph-theory-network-analysis/
 
