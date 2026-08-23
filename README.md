@@ -46,3 +46,7 @@ During testing, Python matplotlib was used to plot the waveforms based on three 
 
 <img width="850" height="425" alt="Example Voltage Plot" src="https://github.com/user-attachments/assets/980a035d-1bcb-4cc3-8643-4d86cf9e4295" />
 
+Animated version, representative of an oscilloscope
+
+<img width="1600" height="1000" alt="sine_wave" src="https://github.com/user-attachments/assets/8bf36d8b-bf46-4309-bba4-6cbbb3f260c6" />
+
