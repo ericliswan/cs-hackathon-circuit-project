@@ -1,5 +1,7 @@
 # Cs UQCS Hackathon Project - 3D Circuit Modeller and Tester
 
+<img width="1600" height="1000" alt="sine_wave" src="https://github.com/user-attachments/assets/8bf36d8b-bf46-4309-bba4-6cbbb3f260c6" />
+
 ### Idea
 
 This circuit project provides users with basic equipment to test AC voltage inputs in circuits with components like Resistors, Capacitors, and Inductors. An oscilloscope with an AC waveform generator is rendered in 3D in Blender, along with a breadboard. The breadboard allows users to drag and drop components like jumper wires and other components, wire them up and see the voltage waveform output. The purpose is to test and experiment with different voltage inputs and probe measurements, which would be invaluable to students wanting to catch up on a practical or to gain more skills with using oscilloscopes and building circuits. 3D rendering of the equipment makes the construction more realistic compared to websites like Tinkercad.
@@ -32,7 +34,7 @@ The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, 
 
 ### Conventions
 
-The following conventions were taken, and currents were assumed to leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver, as if the direction was reversed, then the sign would compensate.
+We used the following conventions and assumed currents leave Node A (the left-most node when instantiated as an object). The order does not matter for the nodal analysis solver; if the direction is reversed, the sign compensates.
 
 <img width="678" height="451" alt="Screenshot 2026-08-22 at 6 17 03 pm" src="https://github.com/user-attachments/assets/ce2ce3d1-4d7e-4653-a7d2-2ed2dca0dc41" />
 
@@ -46,7 +48,20 @@ During testing, Python matplotlib was used to plot the waveforms based on three 
 
 <img width="850" height="425" alt="Example Voltage Plot" src="https://github.com/user-attachments/assets/980a035d-1bcb-4cc3-8643-4d86cf9e4295" />
 
-Animated version, representative of an oscilloscope
+### UI Breakdown - Blender
 
-<img width="1600" height="1000" alt="sine_wave" src="https://github.com/user-attachments/assets/8bf36d8b-bf46-4309-bba4-6cbbb3f260c6" />
+##### Toggle Component Selection
+
+The components can be selected by the user so that when they select nodes on the breadboard, a component of the user's choice is added. If no component is toggled, then no actions will be taken. The variable containing the component name is passed to the breadboard script via the context bpy scene.
+
+<img width="405" height="429" alt="Toggle select" src="https://github.com/user-attachments/assets/32852ce4-06a1-4328-b114-af9fead2e0cb" />
+
+##### Breadboard Node Selection
+
+As the user hovers over a node, a circle appears to confirm selection, which is done through raycasting. 
+
+<img width="707" height="693" alt="Breadboard selection" src="https://github.com/user-attachments/assets/e634da0a-ccbd-4614-8f9b-84a67d0d87d7" />
+
+
+
 
