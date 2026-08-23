@@ -26,6 +26,12 @@ Structured output (All wires removed, nodes merged with components, and the volt
 
 ```[67b9ffcd-403b-47f4-89f5-6f7d111a4c33, 1->5, 250, 31fa8cf3-1b27-4358-bf2a-5feb930ac699, 5->0, 500, bedd60a2-4496-4960-adf0-6502e99ec46e, 5->0, 4.7e-05, <AC_Circuit_Solver.VoltageSource object at 0x104458d70>]```
 
+### Determining if a circuit is valid (BFS)
+
+The circuit model can be translated into a graph where the vertices represent the nodes and the edges represent the components. Hence, an adjacency matrix can be formed. After performing a Breadth First Search starting at node 1 (VCC), if the final matrix contains the ground (node 0) then the circuit is valid.
+
+<img width="600" height="350" alt="Graph-Theory-Network-Analysis-24" src="https://github.com/user-attachments/assets/181cb24c-3267-476a-b556-591d155778ff" />
+
 ### AC Circuit Solver
 
 The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, allowing for independent voltage sources and current sources to be factored into analysis. This involves making a matrix with the following unknowns (nodal voltages, N_x; voltage source, V_S; currents referring to the voltage source. The ground node is omitted from the matrix as it creates an unnecessary equation, since the rule of thumb is that for n nodes, n-1 equations are needed, as the ground is taken to be at a voltage of 0 V.
@@ -62,6 +68,14 @@ As the user hovers over a node, a circle appears to confirm selection, which is 
 
 <img width="707" height="693" alt="Breadboard selection" src="https://github.com/user-attachments/assets/e634da0a-ccbd-4614-8f9b-84a67d0d87d7" />
 
+### Attributions
 
+The following open-source models from Blend-kit were used to develop the frontend UI:
+
+Breadboard: https://www.blendkit.com/asset-gallery-detail/85a896f7-81c8-4493-9778-c70b3a7d2a9c/
+
+Oscilloscope: https://www.blendkit.com/asset-gallery-detail/64f2fd79-8ff7-453a-ac25-d78dc3ca21f0/?query=tags%3AOscilloscope
+
+Graph Theory in Network Analysis: https://www.eeeguide.com/graph-theory-network-analysis/
 
 
