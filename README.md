@@ -1,4 +1,4 @@
-# Cs UQCS Hackathon Project - 3D Circuit Modeller and Tester
+# Cs UQCS Hackathon Project - BYOC (Build Your Own Circuit)
 
 <img width="1600" height="1000" alt="sine_wave" src="https://github.com/user-attachments/assets/8bf36d8b-bf46-4309-bba4-6cbbb3f260c6" />
 
@@ -37,6 +37,16 @@ The circuit model can be translated into a graph where the vertices represent th
 The solver utilises Modified Nodal Analysis (MNA) to solve both AC/DC circuits, allowing for independent voltage sources and current sources to be factored into analysis. This involves making a matrix with the following unknowns (nodal voltages, N_x; voltage source, V_S; currents referring to the voltage source. The ground node is omitted from the matrix as it creates an unnecessary equation, since the rule of thumb is that for n nodes, n-1 equations are needed, as the ground is taken to be at a voltage of 0 V.
 
 <img width="857" height="418" alt="Screenshot 2026-08-22 at 4 16 18 pm" src="https://github.com/user-attachments/assets/1b515a61-556d-42d5-b8d0-51e21e71154b" />
+
+#### Example circuit solve
+
+The following code demonstrates how the matrices get formed with complex numbers as entries:
+
+```[[ 1.12359551e-03+0.j -1.12359551e-03+0.j  0.00000000e+00+0.j 1.00000000e+00+0.j], [-1.12359551e-03+0.j  2.33571672e-03+0.j -9.09090909e-04+0.j 0.00000000e+00+0.j], [ 0.00000000e+00+0.j -9.09090909e-04+0.j  1.09777016e-03+0.j 0.00000000e+00+0.j], [ 1.00000000e+00+0.j  0.00000000e+00+0.j  0.00000000e+00+0.j 0.00000000e+00+0.j]]```
+
+The following output represents the voltage at each node. So the ith entry in the list represents the voltage at node i.
+
+```[0j, (10.3923+6j), (7.3769+4.2591j), (6.109+3.527j)]```
 
 ### Conventions
 
